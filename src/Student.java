@@ -167,4 +167,19 @@ public class Student {
             e.printStackTrace();
         }
     }
+
+    public int compareTo(Student other) {
+        // Сравниваем сначала по фамилии
+        int cmp = this.lastName.compareTo(other.lastName);
+        if (cmp != 0) {
+            return cmp;
+        }
+        // Если фамилии одинаковые, сравниваем по имени
+        cmp = this.firstName.compareTo(other.firstName);
+        if (cmp != 0) {
+            return cmp;
+        }
+        // Если имена тоже одинаковые, сравниваем по возрасту
+        return Integer.compare(this.birthDate, other.birthDate);
+    }
 }

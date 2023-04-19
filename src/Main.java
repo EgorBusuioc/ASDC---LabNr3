@@ -17,17 +17,24 @@ public class Main {
         File file = new File(".\\src\\MOCK_DATA.csv");
         ArrayList<Student> arrayList = Student.input(file);
 
-        Student.deleteStudentByIDNP(new File(".\\src\\MOCK_DATA.csv"), 489519012);
-        System.out.printf("Обновленный файл\n\n\n\n\n");
-        arrayList = Student.input(file);
-        for (Student s : arrayList) {
+        //Student.deleteStudentByIDNP(new File(".\\src\\MOCK_DATA.csv"), 489519012);
+        //System.out.printf("Обновленный файл\n\n\n\n\n");
+        //arrayList = Student.input(file);
+        /*for (Student s : arrayList) {
             System.out.println(s);
         }
 
         System.out.println("Student was found with IDNP = " + linearSearch(arrayList, 489519012));
         addStudent(arrayList, 450, "Egor", "Busuioc","Mathematics", 2001, 2021, 566521448);
         System.out.println("Student was found with IDNP = " + linearSearch(arrayList, 566521448));
+*/
 
+        Tree tree = new Tree();
+        for(Student student: arrayList){
+            tree.insertNode(student);
+        }
+
+        tree.printTree();
     }
 
     public static int linearSearch(ArrayList<Student> listOfStudents, long idnpToBeFound){
