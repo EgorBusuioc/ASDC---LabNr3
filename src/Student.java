@@ -7,6 +7,14 @@ import java.util.Objects;
  * The Student program implements an application that
  * simply adds data about students.
  *
+ * @see Student#Student()
+ * @see Student#Student(String firstName, String lastName, String faculty, int birthDate, int admissionYear, int IDNP)
+ * @see Student#Student(Student stud)
+ * @see Student#toString()
+ * @see Student#equals(Object)
+ * @see Student#input(File) 
+ * @see Student#deleteStudentByIDNP(File, int) 
+ * @see Student#compareTo(Student)
  * @version 1.0
  * @author EgorBusuioc
  */
@@ -81,6 +89,11 @@ public class Student {
                 ", IDNP=" + IDNP +
                 '}';
     }
+
+    /**
+     * <h3>Method of adding to ArrayList</h3>
+     * @return
+     */
     public String addToString() {
         return String.join(",",String.valueOf(IDNP), firstName, lastName, faculty, String.valueOf(birthDate), String.valueOf(admissionYear)) + "\n";
     }
@@ -108,7 +121,7 @@ public class Student {
      * This method reads strings from "MOCK_DATA.csv" and
      * adds parameters to class Student.
      *
-     * @param string
+     * @param string String with parameters
      * @return Object Student.
      */
     public static Student createStudentFromString(String string){
@@ -146,7 +159,18 @@ public class Student {
         }
         return studentList;
     }
-
+    /**
+     *<h3>Delete Student</h3>
+     *<p></p>
+     * This method deletes a student from a file by their IDNP. The method first reads the contents of the
+     * file and creates an ArrayList of Student objects. It then loops through the ArrayList and finds the
+     * student with the matching IDNP. Once the student is found, it removes them from the ArrayList and
+     * writes the updated list back to the file. If the student with the specified IDNP is not found,
+     * nothing is changed in the file.
+     * @param file the file to read and write the student data from and to
+     * @param IDNP the IDNP of the student to be deleted from the file
+     * @throws IOException if there is an error reading or writing to the file
+     */
     public static void deleteStudentByIDNP(File file, int IDNP) {
         ArrayList<Student> studentList = input(file);
 
@@ -167,19 +191,26 @@ public class Student {
             e.printStackTrace();
         }
     }
-
+    /**
+     *<h3>Compare To</h3>
+     *<p></p>
+     *This method compares the current student object to another student object based on their last name,
+     *first name, and birth date. It returns a negative integer, zero, or a positive integer as this
+     *object is less than, equal to, or greater than the specified object.
+     *@param other The student object to be compared to the current object
+     *@return A negative integer, zero, or a positive integer as this object is less than, equal to,
+     *or greater than the specified object
+     *@throws NullPointerException if the specified object is null
+     */
     public int compareTo(Student other) {
-        // Сравниваем сначала по фамилии
         int cmp = this.lastName.compareTo(other.lastName);
         if (cmp != 0) {
             return cmp;
         }
-        // Если фамилии одинаковые, сравниваем по имени
         cmp = this.firstName.compareTo(other.firstName);
         if (cmp != 0) {
             return cmp;
         }
-        // Если имена тоже одинаковые, сравниваем по возрасту
         return Integer.compare(this.birthDate, other.birthDate);
     }
 }
