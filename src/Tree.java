@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Stack;
 /**
  * <h3>Class Tree</h3>
@@ -17,9 +21,11 @@ import java.util.Stack;
  * @version 1.0
  */
 class Tree {
-    private Node rootNode; // the root node of the tree
+    private Node rootNode;
+    private int size;// the root node of the tree
 
     public Tree() { // Empty Tree
+
         rootNode = null;
     }
     /**
@@ -57,6 +63,7 @@ class Tree {
         newNode.setValue(value);
         if (rootNode == null) {
             rootNode = newNode;
+            size++;
         }
         else {
             Node currentNode = rootNode;
@@ -71,6 +78,7 @@ class Tree {
                     currentNode = currentNode.getLeftChild();
                     if (currentNode == null){
                         parentNode.setLeftChild(newNode);
+                        size++;
                         return;
                     }
                 }
@@ -78,6 +86,7 @@ class Tree {
                     currentNode = currentNode.getRightChild();
                     if (currentNode == null) {
                         parentNode.setRightChild(newNode);
+                        size++;
                         return;
                     }
                 }
@@ -145,7 +154,7 @@ class Tree {
                 parentNode.setRightChild(heir);
             }
         }
-
+        size--;
         return true;
     }
 
@@ -257,5 +266,24 @@ class Tree {
             System.out.print(node.getValue() + " ");
             traverseInOrder(node.getRightChild());
         }
+    }
+
+    public Tree createTree(File file){
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String st;
+            while ((st = br.readLine()) != null) {
+                if (st.isEmpty()) {
+                } else {
+                    insertNode(Student.createStudentFromString(st));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public int getSize(){
+        return size;
     }
 }
